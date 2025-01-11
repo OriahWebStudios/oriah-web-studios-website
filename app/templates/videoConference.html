@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Video Conference</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+</head>
+<body style="color: white;">
+
+    {% if is_host %}
+        <div class="host-container">
+            <div class="host-content">
+                <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="">
+                <p>Video Confrencing Room</p>
+            </div>
+            <div class="host-buttons">
+                <button class="host-button" onclick="startVideoConference()">Start Video Conference</button>
+                <a class="host-button" href="{{ url_for('main.index') }}">Exit Room</a>
+            </div>
+        </div>
+    {% else %}
+    <div class="host-container participant">
+        <div class="host-content">
+            <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="">
+            <p>Video Confrencing Room</p>
+        </div>
+        <p class="wait-message">Please wait for the host to start the video conference. Thank you for your patience.</p>
+    </div>
+    {% endif %}
+
+    <div id="jitsi-meet"></div>
+    <script src="https://meet.jit.si/external_api.js"></script>
+    <script>
+        const meetingUrl = "{{ meeting_url }}";
+        const isHost = '{{ "true" if is_host else "false" }}';
+
+        function startVideoConference() {
+            fetch('/start-video-conference', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message);
+                    if (isHost === 'true') {
+                        initialiseVideoConference();
+                    }
+                });
+        }
+
+        function checkConferenceStatus() {
+            fetch('/check-conference-status', {method: 'GET'})
+                .then(response => response.json())
+                .then(data => {
+                    if (data.started) {
+                        initialiseVideoConference();
+                    } else {
+                        setTimeout(checkConferenceStatus, 8000);
+                    }
+                });
+        }
+
+        function initialiseVideoConference() {
+            const domain = "meet.jit.si";
+            const options = {
+                roomName: "OWS - Room 1",
+                width: "100%",
+                height: "100vh",
+                parentNode: document.querySelector('#jitsi-meet'),
+                interfaceConfigOverwrite: {
+                    DEFAULT_LOGO_URL: "{{ url_for('static', filename='/img/6-removebg-preview.crop.png') }}", 
+                    SHOW_JITSI_WATERMARK: false,
+                    SHOW_WATERMARK_FOR_GUESTS: false,
+                    SHOW_BRAND_WATERMARK: false,
+                    DEFAULT_BACKGROUND: "#000000",
+                    SHOW_WATERMARK_FOR_CHROME_EXTENSION: false,
+                    SHOW_CHROME_EXTENSION_BANNER: false,
+                    DISPLAY_WELCOME_FOOTER: false,
+                    ENABLE_CLOSE_PAGE: false,
+                    ENABLE_CLOSE_PAGE_WHEN_JOINED: false,
+                    ENABLE_WELCOME_PAGE: false,
+                    DISPLAY_WELCOME_PAGE_CONTENT: false,
+                    JITSI_WATERMARK_LINK: 'false',
+                    SHOW_POWERED_BY: false,
+                    SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+                    TOOLBAR_BUTTONS: ['microphone', 'camera', 'chat', 'desktop', 'hangup']
+                },
+                configureOverwrite: {
+                    disableSimulcast: false,
+                    enableWelcomePage: false,
+                    postJoinPageEnabled: false,
+                    startWithAudioMuted: !isHost,
+                    startWithVideoMuted: !isHost,
+                }
+            };
+            const api = new JitsiMeetExternalAPI(domain, options);
+            const hostContainer = document.querySelector('.host-container');
+            hostContainer.style.display = 'none';
+            const participantContainer = document.querySelector('.participant');
+            participantContainer.style.display = 'none';
+        
+
+            api.addEventListener('videoConferenceJoined', () => {
+                console.log(isHost ? 'Host has joined video conference' : 'Participant has joined video conference');
+
+                api.addEventListener('videoConferenceLeft', () => {
+                    console.log(isHost ? 'Host has left video conference' : 'Participant has left video conference');
+                    window.location.href = "{{ url_for('main.index') }}";
+                });
+            });
+        }
+
+        if (isHost === 'true') {
+            document.querySelectorAll('.host-button').addEventListener('click', startVideoConference);
+        }
+
+        if (isHost === 'false') {
+            checkConferenceStatus();
+        }
+
+        
+    </script>
+</body>
+</html>

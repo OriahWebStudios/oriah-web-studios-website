@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Admin Login</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<style>
+    * {
+        font-family: 'Poppins', 'san-serif';
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        background-color: black;
+        color: white;
+
+    }
+
+    header {
+        padding: 20px 50px;
+        background-color: black;
+    }
+
+    .login-logo {
+        width: 130px;
+    }
+
+    .login-form-container {
+        margin: 0 auto;
+        margin-top: 140px;
+        margin-bottom: 10px;
+        width: 300px;
+        height: 500px;
+        text-align: center;
+    }
+
+    .login-form-container h1 {
+        font-weight: 400;
+        font-size: 30pt;
+    }
+
+    .form-input {
+        padding: 15px;
+        width: 100%;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+    }
+
+    .submit-btn {
+        padding: 10px 20px;
+        background-color: white;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .error-message {
+        color: white;
+    }
+
+</style>
+<body>
+    <header>
+        <img class="login-logo" src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="">
+    </header>
+    <div class="login-form-container">
+        <h1>Login</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if message %}
+                        <div class="{{ category }}">
+                            <p class="error-message">{{ message }}</p>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('main.login') }}" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username(class="form-input", placeholder="Username") }}
+            </div>
+            <div class="form-group">
+                {{ form.password_hash(class="form-input", placeholder="Password") }}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="submit-btn") }}
+            </div>
+        </form>
+        <p style="margin-top: 20px; font-size: 9pt;">Forgot Password? Please contact your administrator</p>
+    </div>
+
+    <footer style="margin: 0 50px; font-size: 10pt; display: flex; justify-content: space-between; align-items: center;">
+        <p>Copyright © 2024 Oriah Web Studios. All rights reserved</p>
+        <p>Powered by Oriah Web Studios</p>
+    </footer>
+</body>
+</html>

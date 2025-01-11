@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Admin Panel</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <div class="loader-content" id="loader-content">
+        <img src="{{ url_for('static', filename='img/7-removebg-preview.png') }}" alt="">
+        <span class="loader"></span>
+        <p>Preparing your panel...</p>
+    </div>
+    <div style="display: none;" id="content">
+        <aside class="sidebar">
+            <img class="side-img" src="{{ url_for('static', filename='img/Secondary.crop.png') }}" alt="">
+            <nav>
+                <ul>
+                    <li><a href="#dashboard" onclick="ShowSection('dashboard')"><i class="fa fa-dashboard"></i></a></li>
+                    <li><a href="#clients" onclick="ShowSection('clients')"><i class="fa fa-users"></i></a></li>
+                    <li><a href="#portfolio" onclick="ShowSection('portfolio')"><i class="fa fa-folder"></i></a></li>
+                    <li><a href="#money" onclick="ShowSection('money')"><i class="fa fa-money"></i></a></li>
+                    <li><a href="#settings" onclick="ShowSection('settings')"><i class="fa fa-gear"></i></a></li>
+                    <li><a href="{{ url_for('main.logout') }}" onclick="ShowSection('logout')"><i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </nav>
+        </aside>
+    
+        <div class="main-content">
+            <header class="top-nav">
+                <div class="main-c-h1"><h2 style="font-size: 14pt;">Oriah Web Studios | Admin Panel</h2>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                </div>
+                <div class="nav-icons">
+                    <a style="text-decoration: none; color: black;" href="#profile"><i class="fa fa-user"></i> {{ current_user.full_name }}</a>
+                </div>
+            </header>
+            <!-- Dashboard -->
+            <section id="dashboard" class="section dashboard">
+                <h1>Hello, {{ current_user.full_name.split(' ')[0] }}! Let's make today extraordinary. <i class="fa fa-hand-peace-o"></i></h1>
+                <div class="overview">
+                    <div class="card">
+                        <p class="value-heading">Total Clients <span><a href=""><i class="fa fa-external-link-square"></i></a></span></p>
+                        <p class="value">{{ total_clients }}</p>
+                        <p style="font-size: 9pt;"><i class="fa fa-exclamation-circle"></i> Active clients only</p>
+                    </div>
+                    <div class="card grey">
+                        <p class="value-heading">Total Projects</p>
+                        <p class="value">{{ total_active_work }}</p>
+                    </div>
+                    <div class="card grey">
+                        <p class="value-heading">Completed Projects</p>
+                        <p class="value">{{ total_active_work }}</p>
+                    </div>
+                    <div class="card grey">
+                        <p class="value-heading">Running Projects</p>
+                        <p class="value">{{ total_active_work }}</p>
+                    </div>
+                    <div class="card grey">
+                        <p class="value-heading">Pending Projects</p>
+                        <p class="value">{{ total_active_work }}</p>
+                        <p style="font-size: 9pt;"><i class="fa fa-exclamation-circle"></i> Still waiting on approval</p>
+                    </div>
+                </div>
+                <div style="margin-top: 10px;" class="overview">
+                    <div style="width: 50%; height: 460px;" class="card grey">
+                        <p style="font-size: 11pt; display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px;">Meeting Reminder                        </p>
+                        
+                        <div class="scrollable">
+                            {% for meeting in meetings %}
+                                <div class="meeting-details">
+                                    <p style="font-size: 10pt;"><i class="fa fa-calendar-o"></i> {{ meeting.datetime }}</p>
+                                    <p style="font-weight: bold; font-size: 13pt">Meeting with {{ meeting.full_name }}</p>
+                                    <p style="font-size: 10pt">Regarding the initialization of the project.</p>
+                                    <p style="margin-bottom: 20px; font-size: 12pt">{% if meeting.setting == 'Virtual' %}<i class="fa fa-desktop"></i> Virtual{% else %}<i class="fa fa-user"></i> In-Person{% endif %}</p>
+                                    <a href="{{meeting.meeting_url}}"><i class="fa fa-video-camera"></i> Join Meeting</a>
+                                    <a href="#update" onclick="showUploadContainer('reminder-form-{{ meeting.id }}')"><i class="fa fa-pencil"></i> Update</a>
+                                    <a href="#cancel"><i class="fa fa-trash-o"></i> Remove</a>
+
+                                    <div id="reminder-form-{{ meeting.id }}" class="reminder-form-container" style="display: none;">
+                                        <form action="{{ url_for('main.update_reminder', meeting_id=meeting.id) }}" method="POST">
+                                            {{ reminderForm.hidden_tag() }}
+                                            <div class="form-group">
+                                                {{ reminderForm.datetime(class="input", placeholder='Date & Time') }}
+                                            </div>
+                                            <div class="form-group">
+                                                {{ reminderForm.setting(class="input", placeholder='Meeting Setting (Virtual/In-Person)') }}
+                                            </div>
+                                            <div style="margin-bottom: 10px;" class="form-group btns">
+                                                {{ reminderForm.submit(class="btn hover") }}
+                                                <button class="btn hover" onclick="hideUploadContainer('reminder-form-{{ meeting.id }}')">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div style="width: 50%; height: 460px;" class="card grey">
+                        <p style="font-size: 11pt; display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px;">Messages</p>
+
+                    </div>
+                </div>
+                
+                
+            </section>
+            <!-- Clients -->
+            <section style="margin: 0 20px;" id="clients" class="section">
+                <div class="clients-nav">
+                    <h2 style="font-weight: 400;"><i class="fa fa-users"></i> Client Management Hub</h2>
+                </div>
+                
+                <div class="filter-section">
+                    <input oninput="filterClients()" id="search-name" type="text" placeholder="Search Clients by Name or Surname">
+                    <select name="filter-client-status" id="filter-client-status" onchange="filterClients()">
+                        <option value="all">All Clients</option>
+                        <option value="Active">Active Clients</option>
+                        <option value="Pending">Pending/Inactive Clients</option>
+                    </select>
+                    <a class="export-btn" href="{{ url_for('main.export_clients') }}">Download Client Details</a>
+                </div>
+                <table class="client-table info-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Cell Number</th>
+                            <th>Client Status</th>
+                            <th>Project Status</th>
+                            <th>Contract Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for client in clients %}
+                            <tr data-client-status="{{ client.client_status.lower() }}" data-name="{{ client.first_name.lower() }} {{ client.last_name.lower() }}">
+                                <td>{{ client.id }}</td>
+                                <td>{{ client.first_name }} {{ client.last_name }}</td>
+                                <td>{{ client.email }}</td>
+                                <td>{{ client.cell_number }}</td>
+                                <td>{{ client.client_status }}</td>
+                                <td>{{ client.project_status }}</td>
+                                <td>{{ client.contract }}</td>
+                                <td>
+                                    <a href="{{ url_for('main.view_clients', client_id=client.id) }}" class="btn">View</a>
+                                    <a href="{{ url_for('main.web_dev_delete_client', client_id=client.id) }}" class="btn delete-btn">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+    
+            <!-- Portfolio -->
+            <section style="margin: 0 20px;" id="portfolio" class="section">
+                <div class="portfolio-nav">
+                    <h2 style="font-weight: 400;"><i class="fa fa-folder"></i> Project Hub</h2>
+                </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <p style="margin-top: 10px;">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% for client in clients %}
+                    {% if client.client_status == 'Active' %}
+                        <div class="project-cards">
+                            <div class="project-card">
+                                <h3 style="font-size: 12pt; width: 100px ;"><strong>PID</strong>: {{ client.id }}</h3>
+                                <p style="font-size: 12pt; width: 400px;"><strong>Project Name</strong>: {{ client.project_name }}</p>
+                                <p style="font-size: 12pt; width: 500px;">{% if client.project_status == 'In Progress' %} <i style="color: goldenrod;" class="fa fa-history"></i> {{ client.project_status }}{% else %}<i style="color: rgb(126, 255, 6);" class="fa fa-check"></i> {{ client.project_status }}{% endif %}</p>
+                                <button onclick="showUploadContainer('upload-container-{{ client.id }}')" class="upload-btn"><i class="fa fa-upload"></i> Upload Content</button>
+                                <a href="{{ url_for('main.download_proj_content', client_id=client.id) }}"><button class="upload-btn"><i class="fa fa-download"></i> Download Content</button></a>
+                            </div>
+                        </div>
+                        <div style="display: none;" id="upload-container-{{ client.id }}" class="upload-container">
+                            <div class="upload-content">
+                                <p style="font-size: 18pt;">Upload Content</p>
+                                <p style="font-size: 9pt; margin-bottom: 10px;">Supported Files: .txt, .pdf, .png, .jpg, .jpeg, .docx, .xlsx</p>
+                                <form action="{{ url_for('main.upload_proj_content', client_id=client.id) }}" method="POST" enctype="multipart/form-data">
+                                    <input type="file" name="file" accept=".txt,.pdf,.png,.jpg,.jpeg,.docx,.xlsx" required/>
+                                    <button type="submit" class="upload-btn hover" type="submit">Upload</button>
+                                    <button class="upload-btn hover" onclick="hideUploadContainer('upload-container-{{ client.id }}')">Cancel</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </section>
+
+            <!-- Money -->
+            <section style="margin: 0 20px; padding-top: 2px;" id="money" class="section">
+                <div class="portfolio-nav">
+                    <h2 style="font-weight: 400;"><i class="fa fa-money"></i> Financials Hub</h2>
+                </div>
+                {% if current_user.is_authenticated %}
+                    <div class="btns-container">
+                        <button onclick="showUploadContainer('income-form')">Capture Income</button>
+                        <a href="#add_expense"><button onclick="showUploadContainer('expense-form')">Capture Expenses</button></a>
+                        <a href="#income_tracker"><button onclick="showUploadContainer('income-tracker-container')">Income Tracker</button></a>
+                        <a href="#expense_tracker"><button onclick="showUploadContainer('expense-tracker-container')">Expense Tracker</button></a>
+                    </div>
+                    <div class="form-container">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                {% for category, message in messages %}
+                                    <p style="font-weight: bold;">{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <div id="income-form" class="income-form" style="display: none;">
+                            <h2>Add Income</h2>
+                            <form action="{{ url_for('main.add_income') }}" method="POST" enctype="multipart/form-data">
+                                {{ form.hidden_tag() }}
+                                <div class="form-group">
+                                    {{ form.income_type(class="form-input") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.income_amount(class="form-input", placeholder="Enter Amount") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.income_description(class="form-input", placeholder="Enter Description", style="height: 100px;") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.income_date_time(class="form-input", placeholder="Enter Date and Time( MM, DD, YYYY, HH:MM)") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.income_pot(class="form-input", placeholder="Proof of Transaction") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.submit(class="btn hover") }}
+                                </div>
+                                <button class="btn hover" onclick="hideUploadContainer('income-form')">Cancel</button>
+                            </form>
+                        </div>
+
+                        <div id="expense-form" class="expense-form" style="display: none;">
+                            <h2>Add Expenses</h2>
+                            <form action="{{ url_for('main.add_expenses') }}" method="POST" enctype="multipart/form-data">
+                                {{ form2.hidden_tag() }}
+                                <div class="form-group">
+                                    {{ form2.expense_type(class="form-input") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.expense_amount(class="form-input", placeholder="Enter Amount") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.description(class="form-input", placeholder="Enter Description", style="height: 100px;") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.expense_date_time(class="form-input", placeholder="Enter Date and Time( MM, DD, YYYY, HH:MM)") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.expense_pot(class="form-input", placeholder="Proof of Transaction") }}
+                                </div>
+                                <div class="form-group", style="display: flex;">
+                                    {{ form2.is_deductible.label(class="form-label") }} {{ form2.is_deductible(class="form-input", style="width: 50px;") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.submit(class="btn hover") }}
+                                </div>
+                                <button class="btn hover" onclick="hideUploadContainer('expense-form')">Cancel</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="financial-records-container">
+                        <div class="financial-records">
+                            <div class="finance-header">
+                                <h2>Overview</h2>
+                            </div>
+                            <p style="font-size: 18pt;"><strong>Net Profit</strong> R {{ "%.2f" % (net_income if net_income else 0) | round(2) }}</p>
+                            <p><strong>Total Revenue</strong> R {{ "%.2f" % (total_revenue if total_revenue else 0) | round(2) }}</p>
+                            <p><strong>Total Expenses</strong> R {{ "%.2f" % (total_expenses if total_expenses else 0) | round(2) }}</p>
+                            <p><strong>Taxable Income</strong> R {{ "%.2f" % (taxable_income if taxable_income else 0) | round(2) }}</p>
+                            <p><strong>Tax Payable</strong> R {{ "%.2f" % (tax_amount if tax_amount else 0) | round(2) }}</p>
+                            <p><strong>Provisional Tax</strong> R {{ "%.2f" % (provisional_tax if provisional_tax else 0) | round(2) }}</p>
+                        </div>
+                    </div>
+                     <div style="display: flex; align-items: center; gap: 10px; margin-top: 10px; margin-bottom: 10px;">
+                        <a href=""><button class="btn hover">View Audit Log</button></a>
+                    </div>
+                    <div class="expense-tracker-container" id="expense-tracker-container" style="display: none;">
+                        <div class="expense-tracker">
+                            <div class="expense-header">
+                                <h2>Expenses Tracker</h2>
+                                <i style="cursor: pointer; font-size: 20pt;" class="fa fa-times" onclick="hideUploadContainer('expense-tracker-container')"></i>
+                            </div>
+                            <div class="expense-tracker-table">
+                                <table class="expense-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Reciept Description</th>
+                                            <th>Category</th>
+                                            <th>Amount</th>
+                                            <th>Deductible</th>
+                                            <th>Date Added</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for expense in expense_data %}
+                                        <tr>
+                                            <td>{{ expense.id }}</td>
+                                            <td>{{ expense.description }}</td>
+                                            <td>{{ expense.expense_type }}</td>
+                                            <td>R {{ "%.2f" % expense.expense_amount | round(2) }}</td>
+                                            <td>{% if expense.is_deductible == 1 %}<i class="fa fa-check"></i>{% else %}<i class="fa fa-times"></i>{% endif %}</i></td>
+                                            <td>{{ expense.expense_date_time }}</td>
+                                            <td>
+                                                <a href=""><button class="btn">Download Proof of Transaction</button></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="expense-tracker-container" id="income-tracker-container" style="display: none;">
+                        <div class="expense-tracker">
+                            <div class="expense-header">
+                                <h2>Income Tracker</h2>
+                                <i style="cursor: pointer; font-size: 20pt;" class="fa fa-times" onclick="hideUploadContainer('income-tracker-container')"></i>
+                            </div>
+                            <div class="expense-tracker-table">
+                                <table class="expense-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction ID</th>
+                                            <th>Reciept Description</th>
+                                            <th>Category</th>
+                                            <th>Amount</th>
+                                            <th>Date Added</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for income in income_data %}
+                                        <tr>
+                                            <td>{{ income.id }}</td>
+                                            <td>{{ income.income_description }}</td>
+                                            <td>{{ income.income_type }}</td>
+                                            <td>R {{ "%.2f" % income.income_amount | round(2) }}</td>
+                                            <td>{{ income.income_date_time }}</td>
+                                            <td>
+                                                <a href=""><button class="btn">Download Proof of Transaction</button></a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="not-authorized">
+                        <p style="text-align: center; font-size: 15pt" ><i class="fa fa-lock"></i> You are not authorized to access this hub.</p>
+                        <p style="font-size: 11pt; text-align: center;">Please contact your administrator.</p>
+                    </div>
+                {% endif %}
+            </section>
+
+            <section id="settings" class="section">
+            </section>
+    
+            <!-- Timeout -->
+            <div style="display: none;" class="inactive">
+                <div class="inactive-container">
+                    <div class="inactive-content">
+                        <p>Session Timed Out. Please Login Again.</p>
+                        <a href="{{ url_for('main.login') }}"><button class="btn hover">Extend Session</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // Loading Screen
+            window.addEventListener("load", () => {
+                document.querySelector("#loader-content").style.display = "none";
+                document.querySelector("#content").style.display = "block";
+            });
+
+            // Session clearence 
+            window.addEventListener("load", () => {
+                fetch('/check_session')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.admin) {
+                        document.querySelector("body").style.pointerEvents = "none";
+                        document.querySelector(".inactive").style.display = "block";
+                        document.querySelector('.inactive').style.pointerEvents = 'auto';
+                    }
+                })
+            })
+
+            // Function to show a specific section
+            function ShowSection(sectionId) {
+                const sections = document.querySelectorAll('.section');
+                const sideBarLinks = document.querySelectorAll('.sidebar nav ul li a');
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                sideBarLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+    
+                const selectedSection = document.getElementById(sectionId);
+                selectedSection.classList.add('active');
+    
+                sideBarLinks.forEach(link => {
+                    if (link.getAttribute('href') === `#${sectionId}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+    
+            // Default section
+            ShowSection('dashboard');
+    
+            // filter clients
+            function filterClients() {
+                const searchName = document.getElementById('search-name').value.toLowerCase();
+                const clientStatus = document.getElementById('filter-client-status').value.toLowerCase();
+                const rows = document.querySelectorAll('.client-table tbody tr');
+    
+                rows.forEach(row => {
+                    const name = row.getAttribute('data-name');
+                    const status = row.getAttribute('data-client-status');
+    
+                    const matchesName = name.includes(searchName);
+                    const matchesStatus = status === clientStatus || clientStatus === 'all';
+    
+                    if (matchesName && matchesStatus) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            }
+    
+            function showUploadContainer(id) {
+                const container = document.getElementById(id);
+                container.style.display = 'block';
+            }
+    
+            function hideUploadContainer(id) {
+                const container = document.getElementById(id);
+                container.style.display = 'none';
+            }
+    
+            // Inactivity Timeout
+            let inactive = function () {
+                let time;
+                const logout = () => {
+                    document.querySelector('.inactive').style.display = 'block';
+                    document.querySelector('body').style.pointerEvents = 'none';
+                    document.querySelector('.inactive').style.pointerEvents = 'auto';
+                };
+    
+                const resetTimer = () => {
+                    clearTimeout(time);
+                    time = setTimeout(logout, 600000);
+                };
+    
+                window.onload = resetTimer;
+                window.onmousemove = resetTimer;
+                window.onscroll = resetTimer;
+                window.onkeypress = resetTimer;
+    
+            };
+    
+            inactive();
+                
+        </script>
+    </div>
+</body>
+</html>

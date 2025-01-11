@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Agreement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 20px 20px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .header img {
+            width: 100px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 400;
+        }
+
+        .contact-body {
+            line-height: 1.6;
+        }
+
+        .contact-body  h2 {
+            margin-bottom: 10px;
+        }
+
+        .terms p {
+            margin: 10px 0;
+        }
+
+        .terms {
+            border-top: 2px solid black;
+        }
+
+        .contract-body a {
+            padding: 12px;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .email-footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .email-footer .email-links a {
+            text-decoration: none;
+            color: blue;
+        }
+        
+        .email-footer img {
+            width: 100px;
+        }
+
+        
+        @media screen and (min-width: 300px) and (max-width: 768px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .header {
+                border-bottom: 2px solid black;
+            }
+
+            .header img {
+                width: 100px !important;
+            }
+
+            .contract-body p {
+                font-size: 10pt;
+            }
+
+            .greeting {
+                margin-bottom: 20px;
+            }
+
+            .contract-body h2 {
+                font-size: 14pt;
+            }
+        }
+    </style>
+
+    <div style="padding-bottom: 10px; border-bottom: 2px solid black;" class="header">
+        <img src="https://www.dropbox.com/scl/fi/1h4fgpz7mx86kn6871m5b/7-removebg-preview.png?rlkey=11bz38j2vj6yttq10w3qjsbp0&st=6hp4y3jq&dl=0&raw=1" width="200px" alt="logo"  alt="logo">
+        <div class="right">
+            <h1 style="font-size: 15pt;">Project Agreement</h1>
+        </div>
+    </div>
+    <br>
+
+    <div class="contract-body">
+        <p class="greeting">Dear {{ client.first_name }} {{ client.last_name }}</p>
+        
+        <p>
+            Thank you for choosing Oriah Web Studios. This project agreement outlines the terms and conditions governing our engagement.
+            We are committed to delivering exceptional service in alignment with your expectations.
+        </p>
+        <br>
+        <h2>Scope of Services</h2>
+        <p style="margin-bottom: 10px;">
+            Oriah Web Studios will provide the following services based on the {{ package_type }} package:
+        </p>
+        <p><strong>-</strong> Development and deployment of your website</p>
+        <p><strong>-</strong> {% if package_type == 'Basic Starter' %}Ongoing maintenance and support{% else %}Ongoing maintenance and support for 6 months{% endif %}</p>
+        <br>
+        <h2>Key Terms</h2>
+        <div class="terms">
+            <p><strong>Payment Terms:</strong> The total fee for the project is {% if package_type == 'Standard - Starter' %}R3 500, 00{% else %}R6 500, 00{% endif %}. 50% of the fee is due at the beginning of the project, and the remaining 50% is due at the end of the project.</p>
+            <p><strong>Timeline:</strong> The project will be completed in the time-frame stipulated in the the package you have chosen.</p>
+            <p><strong>Revisions:</strong> You are entitled to 4 revisions. Additional revisions will incur an additional fee.</p>
+            <p><strong>Termination:</strong> Either party may terminate this agreement with a written notice of 14 days. Any outstanding fees for work completed will be due upon termination.</p>
+            <p><strong>Confidentiality:</strong> Oriah Web Studios agrees to maintain the confidentiality of all proprietary information shared during the project.</p>
+        </div>
+        <br>
+        <h2>Responsibilities</h2>
+        <p>
+            <strong>Client:</strong> Provide timely feedback, access to relevant assets, and ensure payments are made as per the agreed schedule.
+            <br>
+            <strong>Oriah Web Studios:</strong> Deliver quality services, maintain open communication, and adhere to the project timeline.
+        </p>
+        <br>
+        <h2>Acknowledgment</h2>
+        <p>
+            By accepting this contract, you agree to the terms and conditions outlined above.
+        </p>
+        <a style="text-decoration: none; padding: 10px; border-radius: 5px; background-color: #000; color: #fff; margin-bottom: 20px;" href="{{ url_for('main.accept_contract', client_id=client.id, _external=True) }}">Accept Project Agreement</a>
+    </div>
+
+    <div style="margin-top: 50px; border-top: 2px solid black;" class="email-footer">
+        <br
+        <a style="text-decoration: none;" href="{{ url_for('main.index', _external=True) }}"><img src="https://www.dropbox.com/scl/fi/1h4fgpz7mx86kn6871m5b/7-removebg-preview.png?rlkey=11bz38j2vj6yttq10w3qjsbp0&st=6hp4y3jq&dl=0&raw=1" width="100px" alt="logo"></a>
+        <p style="font-size: 9pt;">Copyright © 2024 Oriah Web Studios. All rights reserved</p>
+    </div>
+</body>
+</html>

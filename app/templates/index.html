@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+</head>
+<body>
+    <div id="loading-screen">
+        <img class="loading-image" src="{{ url_for('static', filename='img/8-removebg-preview.crop.png') }}" alt="">
+    </div>
+    <div id="content" style="display: none;">
+        <header class="header">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="logo">
+                </div>
+                <div class="menu">
+                    <a href="#projects">Case Studies</a>
+                    <a href="#pricing">Pricing Plans</a>
+                    <a class="get-in-touch" href="{{ url_for('main.contact_page') }}">Get In Touch <i style="font-weight: lighter;" class="fa fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </header>
+
+        <section id="home" class="landing">
+            <div class="landing-content">
+                <div class="landing-left">
+                    <p>Pick a plan that is right for you and your business, and let us handle the rest.</p>
+                    <a href="#pricing">Discover Our Plans <i style="font-size: 10pt;" class="fa fa-arrow-right"></i></a>
+                </div>
+                <div class="landing-right">
+                    <p>We're a small startup offering high-quality web development at affordable rates. Whether you need ongoing support through a subscription or a one-time project, we tailor our services to fit your business needs.</p>
+                </div>
+            </div>
+            <div class="big-word-slide">
+                <h1>READINESS FOR GROWTH</h1>
+            </div>
+        </section>
+
+        <div style="height: 10vh;"></div>
+
+
+        <section class="promotional">
+            <div class="promotional-content">
+                <p data-aos="fade-up" data-aos-duration="1000" >No big agency fees. No unreliable freelancers. Just a startup dedicated to delivering quality web development that’s fast, straightforward, and affordable.<br><br> Get expert solutions and personalized support in a lean, efficient platform built to help your business grow.</p>
+            </div>
+        </section>
+
+        <div style="height: 10vh;"></div>
+
+        <section class="service">
+            <div class="service-content">
+                <h1 style="margin: 0 !important;" class="service-title">What we do</h1>
+                <p style="margin: 0;" class="service-title">We will make it work. No matter what!</p>
+                <div style="height: 10vh;"></div>
+                <div class="services">
+                    <div class="development">
+                        <h3>01</h3>
+                        <h2><i class="fa fa-paint-brush"></i> Ui/ux Design</h2>
+                        <p>We create custom-built websites that prioritize seamless user experience and robust performance, ensuring your online presence is efficient, scalable, and secure.</p>
+                    </div>
+                    <div class="development">
+                        <h3>02</h3>
+                        <h2><i class="fa fa-code"></i> Development</h2>
+                        <p>We create custom-built websites that prioritize seamless user experience and robust performance, ensuring your online presence is efficient, scalable, and secure.</p>
+                    </div>
+                    <div class="development">
+                        <h3>03</h3>
+                        <h2><i class="fa fa-server"></i> Hosting</h2>
+                        <p>We ensure your website is secure, fast, and scalable, providing constant support to keep your online presence running smoothly. Trust our hosting services to power your business 24/7.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="height: 20vh;"></div>
+
+        <section class="work-done-brands">
+            <div class="brand-container">
+                <h3>IRONCROFT SOCIETY</h3>
+                <h3 style="font-family: 'Times New Roman', Times, serif;">Aesthetics Beauty Studio</h3>
+                <h3>Far From The Rest</h3>
+            </div>
+        </section>
+
+        <div style="height: 10vh;"></div>
+
+        <section class="our-projects" id="projects">
+            <div class="project-content">
+                <h1 style="font-size: 100pt; color: white; font-weight: 400; text-align: center;">RECENT PROJECTS</h1>
+                <p style="color: white; font-weight: 400; text-align: center;">Our recent projects reflect our dedication to seamless user experience, robust performance, and innovative design.</p>
+                <div class="projects">
+                    <div class="project">
+                        <img src="{{ url_for('static', filename='img/screenshot-1730098539359.png') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div style="height: 50vh;"></div>
+
+        <section class="pricing" id="pricing">
+            <div class="pricing-content">
+                <div class="pricing-landing">
+                    <div class="left-pricing">
+                        <h2 style="padding: 20px 0; font-weight: 400; font-size: 40pt">Find The Right Fit For Your Needs.</h2>
+                    </div>
+                    <div class="right-pricing">
+                        <p>We believe in transparent and affordable pricing tailored to meet the unique needs of startups and small businesses. Our services are designed to provide you with high-quality web solutions without compromising your budget.</p>
+                    </div>
+                </div>
+                <div class="pricing-plans">
+                    <div id="projectPackages" class="pricing-section visible">
+                        <div class="projects-pricing">
+                            <div class="project-pricing">
+                                <fieldset>
+                                    <legend>Standard Package</legend>
+                                    <form action="">
+                                        <div class="top">
+                                            <h3>Starter</h3>
+                                            <p>This package is ideal for small businesses and startups looking to establish a solid foundation for their online presence.</p>
+                                            <h1>R3,500</h1>
+                                            <span style="font-weight: 400;">Timeline: 8 Weeks</span>
+                                        </div>
+                                        <a href="{{ url_for('main.start_project', package_type='Standard - Starter') }}" class="start-btn">Begin Your Project <i class="fa fa-arrow-right"></i></a>
+                                        <div class="bottom">
+                                            <p style="font-size: 16pt; font-weight: 400;">What's included</p>
+                                            <p><i class="fa fa-check"></i> Simple 3-5 page website (Home, About, Services, Contact)</p>
+                                            <p><i class="fa fa-check"></i> Responsive design for easy access on all devices</p>
+                                            <p><i class="fa fa-check"></i> Basic SEO setup to enhance online visibility and reach</p>
+                                            <p><i class="fa fa-check"></i> Basic hosting and domain setup</p>
+                                            <p><i class="fa fa-check"></i> 100% website ownership</p>
+                                            <p><i class="fa fa-check"></i> 24/7 support</p>
+                                        </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                            <div class="project-pricing">
+                                <fieldset>
+                                    <legend>Premium Package</legend>
+                                    <form action="">
+                                        <div class="top">
+                                            <h3>Growth</h3>
+                                            <p>This package is ideal for growing businesses that want to expand their online reach. We offer a variety of features and options.</p>
+                                            <h1>R6,500</h1>
+                                            <span style="font-weight: 400;">Timeline: 12 Weeks</span>
+                                        </div>
+                                        <a href="{{ url_for('main.start_project', package_type='Premimum - Growth') }}" class="start-btn">Begin Your Project <i class="fa fa-arrow-right"></i></a>
+                                        <div class="bottom">
+                                            <p style="font-size: 16pt; font-weight: 400;">What's included</p>
+                                            <p><i class="fa fa-check"></i> Up to 7-10 pages with custom layouts</p>
+                                            <p><i class="fa fa-check"></i> Blog or portfolio feature to showcase your work</p>
+                                            <p><i class="fa fa-check"></i> Social media integration for increased engagement</p>
+                                            <p><i class="fa fa-check"></i> Enhanced SEO setup for better search engine rankings</p>
+                                            <p><i class="fa fa-check"></i> Premium hosting and domain setup</p>
+                                            <p><i class="fa fa-check"></i> 24/7 support</p>
+                                        </div>
+                                    </form>
+                                </fieldset>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="faq">
+            <div class="faq-content">
+                <div class="faq-landing">
+                    <div class="faq-left">
+                        <h1 style="font-size: 14pt; color: white; font-weight: 400; padding-top: 20px 0;">(OWS - FAQ O1)</h1>
+                    </div>
+                    <div class="faq-right">
+                        <p>Not sure yet? Have some questions?
+                        </p>
+                        <p>We listed the ones most frequently asked below to help you get the answers you need.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What services do we offer?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        We specialize in a range of web development services, from custom website design to SEO and maintenance plans, all tailored to fit your unique needs.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does it take to build a website?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        The timeline for building a website depends on the project's complexity and your specific requirements. A basic site might take 2–4 weeks, while a more complex website with custom features can take 6–8 weeks or more. We will provide an estimated timeline after discussing your project’s details.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How much does it cost to build a website?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        Pricing varies based on the scope and features of the website. Our packages start as low as R2,500 for a basic website and go up depending on additional functionalities and customizations. We offer project-based packages and maintenance plans to suit different needs and budgets. Contact us for a free consultation, and we’ll give you a tailored quote.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer ongoing support after the website is launched?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        Absolutely! We offer maintenance plans to help with updates, security, and ongoing improvements. Whether it is a one-time update or continuous support, we are here to make sure your website runs smoothly and stays up-to-date.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I make updates to the website myself?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we can build your website on a user-friendly platform like WordPress or provide a custom solution that allows easy updates.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Why should we choose your startup over an established agency?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        Being a startup allows us to offer personalized, flexible services with a focus on each client's specific needs. We work closely with you, ensuring that your vision is at the heart of our development process. Plus, our smaller team means quick responses, dedicated support, and affordable prices that large agencies often can't match.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do we get started?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        Getting started is simple! Just reach out to us through our contact form or give us a call. We’ll schedule a consultation to discuss your project’s goals, ideas, and any questions you may have. From there, we will provide a proposal outlining the process, timeline, and pricing.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Will my website be mobile-friendly?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, all of our websites are built with responsive design to ensure they look great on all devices – desktop, tablet, and mobile. We know how important mobile accessibility is, so it is a top priority in our development process.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What if I want to add more features after the site is live?
+                        <i><i class="fa fa-chevron-down"></i></i>
+                    </div>
+                    <div class="faq-answer">
+                        No problem! We can continue working with you to expand your site as your business grows. Additional features and updates can be added at any time, and we will discuss the best options for your evolving needs.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="footer">
+            <div class="footer-content">
+                <div class="footer-landing">
+                    <div class="footer-left">
+                        <h1>Want to know more? Are you still unsure whether our packages and plans are right for you?</h1>
+                    </div>
+                    <div class="footer-right">
+                        <a href="{{
+                        url_for('main.contact_page') }}">Reach Out <i class="fa fa-arrow-right"></i></a>
+                        <div class="line"></div>
+                    </div>
+                </div>
+                <div class="footer-top">
+                    <div class="footer-top-left">
+                        <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" width="130px" alt="">
+                    </div>
+                    <div class="footer-top-right">
+                        <div class="first-right">
+                            <h2>Legal</h2>
+                            <a href="">Privacy Policy</a>
+                            <a href="">Cookie Policy</a>
+                        </div>
+                        <div class="second-right">
+                            <h2>Sitemap</h2>
+                            <a href="#projects">Case Studies</a>
+                            <a href="#pricing">Pricing</a>
+                            <a href="">Contact</a>
+                        </div>
+                        <div class="third-right">
+                            <h2>Social</h2>
+                            <a href="">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom">
+                    <p style="font-size: 10pt; font-weight:normal;">Copyright © 2024. All rights reserved.</p>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            // Anime.js init
+            function animateParagraphs() {
+                anime({
+                    targets: '.promotional',
+                    opacity: [0, 1],  
+                    translateY: [30, 0], 
+                    easing: 'easeOutQuad',
+                    duration: 800,  
+                    delay: 800,  
+                })
+            }
+
+            function animateST() {
+                anime({
+                    targets: '.service-title',
+                    opacity: [0, 1],  
+                    translateY: [30, 0],  
+                    easing: 'easeOutQuad',
+                    duration: 800,  
+                    delay: 800,  
+                })
+            }
+
+            function animateServices() {
+                anime({
+                    targets: '.development, .brand-container h3',
+                    opacity: [0, 1],  
+                    translateY: [30, 0],  
+                    easing: 'easeOutQuad',
+                    duration: 800,  
+                    delay: 800,  
+                })
+            }
+
+            function animateBrands() {
+                anime({
+                    targets: '.brand-container h3',
+                    opacity: [0, 1],  
+                    translateY: [30, 0],  
+                    easing: 'easeOutQuad',
+                    duration: 800,  
+                    delay: 800,  
+                })
+            }
+
+            function animatePricing() {
+                anime({
+                    targets: '.left-pricing, .right-pricing, .pricing-plans',
+                    opacity: [0, 1],  
+                    translateY: [30, 0],  
+                    easing: 'easeOutQuad',
+                    duration: 800,  
+                    delay: anime.stagger(200),  
+                })
+            }
+
+            function animateProjects() {
+                anime.timeline()
+                    .add({
+                        targets: '.project-content h1',
+                        opacity: [0, 1],
+                        translateY: [-50, 0], 
+                        easing: 'easeOutQuad',
+                        duration: 800,
+                    })
+                    .add({
+                        targets: '.project-content p',
+                        opacity: [0, 1],
+                        translateX: [-50, 0], 
+                        easing: 'easeOutQuad',
+                        duration: 800,
+                    }, '-=600')
+                    .add({
+                        targets: '.projects .project',
+                        opacity: [0, 1],
+                        translateY: [50, 0], 
+                        easing: 'easeOutQuad',
+                        duration: 800,
+                        delay: anime.stagger(200),
+                    });
+            }
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target;
+
+                            // Trigger animations based on class
+                            if (target.classList.contains('promotional')) {
+                                animateParagraphs();
+                            } else if (target.classList.contains('service-title')) {
+                                animateST();
+                            } else if (target.classList.contains('development')) {
+                                animateServices();
+                            } else if (target.classList.contains('project-content')) {
+                                animateProjects();
+                            } else if (target.classList.contains('project')) {
+                                animateProjects();
+                            } else if (target.classList.contains('left-pricing')) {
+                                animatePricing();
+                            } else if (target.classList.contains('right-pricing')) {
+                                animatePricing();
+                            } else if (target.classList.contains('pricing-plans')) {
+                                animatePricing();
+                            }
+                            else if (target.closest('.brand-container')) {
+                                animateBrands();
+                            }
+                            
+
+                            observer.observe(target); 
+                        }
+                    });
+                },
+                { threshold: 0.1 } 
+            );
+
+            // Select and observe all target elements
+            const targets = document.querySelectorAll('.promotional, .service-title, .development, .brand-container h3, .project-content h1, .project-content p, .projects .project, .left-pricing, .right-pricing, .pricing-plans');
+            targets.forEach((target) => observer.observe(target));
+
+            anime({
+                targets: '.header, .landing',
+                opacity: [0, 1],  
+                translateY: [30, 0],  
+                easing: 'easeOutQuad',
+                duration: 800,  
+                delay: anime.stagger(800), 
+            });
+
+
+            // Loading Screen
+            window.addEventListener("load", () => {
+                const loadingScreen = document.getElementById("loading-screen");
+                const mainContent = document.getElementById("content");
+                
+                loadingScreen.classList.add("fade-out");
+
+                loadingScreen.addEventListener("transitionend", () => {
+                    loadingScreen.style.display = "none";
+                    mainContent.style.display = "block";
+                });
+            });
+
+            // Pricing-toogle-button
+            document.getElementById("toggleSwitch").addEventListener("change", function() {
+                const isChecked = this.checked;
+                const projectPackages = document.getElementById("projectPackages");
+                const maintenancePackages = document.getElementById("maintenancePackages");
+
+                if (isChecked) {
+                    projectPackages.classList.remove("visible");
+                    projectPackages.classList.add("hidden");
+                    maintenancePackages.classList.remove("hidden");
+                    maintenancePackages.classList.add("visible");
+                } else {
+                    maintenancePackages.classList.remove("visible");
+                    maintenancePackages.classList.add("hidden");
+                    projectPackages.classList.remove("hidden");
+                    projectPackages.classList.add("visible");
+                }
+            });
+
+            // Faq 
+            document.querySelectorAll('.faq-question').forEach(question => {
+                question.addEventListener('click', () => {
+                   const faqItem = question.parentElement;
+
+                   faqItem.classList.toggle('active');
+
+                   document.querySelectorAll('.faq-item').forEach(item => {
+                       if (item !== faqItem) {
+                           item.classList.remove('active');
+                       }
+                   });
+                });
+            });
+
+           
+        </script>
+    </div>
+</body>
+</html>

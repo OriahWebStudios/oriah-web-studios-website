@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Get in Touch with Us</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div id="loading-screen">
+        <img class="loading-image" src="{{ url_for('static', filename='img/8-removebg-preview.crop.png') }}" alt="">
+    </div>
+    <div id="content" style="display: none;">
+        <header class="header">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="logo">
+                </div>
+                <div class="menu">
+                    <a class="home" href="{{ url_for('main.index') }}"><i class="fa fa-arrow-left"></i> Home</a>
+                </div>
+            </div>
+        </header>
+
+        <section class="contact-content">
+            <div class="contact-info">
+                <h1>Let's</h1>
+                <img src="{{ url_for('static', filename='/img/mitchell-luo-u65fRizTMSQ-unsplash.jpg') }}" width="250px" alt="">
+                <h1>Talk</h1>
+            </div>
+
+            <div style="height: 20vh;"></div>
+
+            <div class="contact-details">
+                <p>We'd love to hear from you! Whether you have a question, a project idea, or just want to say hello, don't hesitate to get in touch. At Oriah Web Studios, we value your input and are always here to help. Your feedback and inquiries are important to us, and we're committed to providing you with the best support possible. Reach out to us through the form below, and let's start a conversation! <i class="fa fa-hand-peace-o"></i></p>
+                <div class="contact-form">
+                    
+                    <form action="{{ url_for('main.contact_page') }}" method="POST" novalidate>
+                        {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {% if form.full_name.errors %}
+                                {% for error in form.full_name.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="full_name-error"></div>
+                            {{ form.full_name(class="form-input", placeholder="Full Name", id='full_name') }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.email.errors %}
+                                {% for error in form.email.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="email-error"></div>
+                            {{ form.email(class="form-input", placeholder="Email Address", id='email') }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.message.errors %}
+                                {% for error in form.message.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="message-error"></div>
+                            {{ form.message(class="form-input", placeholder="Your message goes here...", style="height: 200px;", id='message') }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit(class="btn", id="submit") }}
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div style="height: 10vh;"></div>
+
+            <section class="footer">
+                <div class="footer-content">
+                    <div class="footer-bottom">
+                        <p style="font-size: 10pt; font-weight:normal;">Copyright © 2024. All rights reserved.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        
+        
+
+        <script>
+            // Loading Screen
+            window.addEventListener("load", () => {
+                const loadingScreen = document.getElementById("loading-screen");
+                const mainContent = document.getElementById("content");
+                
+                loadingScreen.classList.add("fade-out");
+
+                loadingScreen.addEventListener("transitionend", () => {
+                    loadingScreen.style.display = "none";
+                    mainContent.style.display = "block";
+                });
+            });
+
+            // Errors
+            document.getElementById('submit').addEventListener('click', function() {
+                document.querySelectorAll('.error-message').forEach(error => error.innerText = '');
+
+                let hasError = false;
+
+                const full_name = document.getElementById('full_name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const message = document.getElementById('message').value.trim();
+
+                if (!full_name) {
+                    document.getElementById('full_name-error').innerText = 'Full name is required';
+                    hasError = true;
+                }
+                if (!message) {
+                    document.getElementById('message-error').innerText = 'Message is required';
+                    hasError = true;
+                }
+                if (!email) {
+                    document.getElementById('email-error').innerText = 'Email is required';
+                    hasError = true;
+                } else if (!/\S+@\S+\.\S+/.test(email)) {
+                    document.getElementById('email-error').innerText = 'Please enter a valid email address';
+                    hasError = true;
+                }
+
+                if (hasError) { 
+                    event.preventDefault(); 
+                    this.disabled = true; 
+                } else { 
+                    this.disabled = false;
+                } 
+            });
+                
+
+            anime({
+                targets: '.header, .contact-info h1',
+                opacity: [0, 1],  
+                translateY: [30, 0],  
+                easing: 'easeOutQuad',
+                duration: 800, 
+                delay: anime.stagger(800), 
+            });
+
+            function animateParagraphs() {
+                anime({
+                    targets: '.contact-details',
+                    opacity: [0, 1], 
+                    translateY: [30, 0],  
+                    easing: 'easeOutQuad',
+                    duration: 800, 
+                    delay: 800, 
+                })
+            }
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            const target = entry.target;
+
+                            if (target.classList.contains('contact-details')) {
+                                animateParagraphs();
+                            }
+                            observer.unobserve(target); 
+                        }
+                    });
+                },
+                { threshold: 0.3 } 
+            );
+
+            const targets = document.querySelectorAll('.contact-details');
+            targets.forEach((target) => observer.observe(target));
+        </script>
+    </div>
+</body>
+</html>

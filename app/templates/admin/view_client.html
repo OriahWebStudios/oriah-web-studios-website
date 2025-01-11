@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin/client-style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+</head>
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logoNClient">
+                <img src="{{ url_for('static', filename='img/4-removebg-preview.png') }}" width="150px" alt="logo"> 
+                <h2>Admin Panel | Client View</h2>
+            </div>
+            <div class="current-user">
+                <p><i class="fa fa-user"></i> {{ current_user.full_name }}</p>
+            </div>
+        </div>
+        <div class="button-container">
+            <button onclick="showForm('edit-client-form')" class="btn"><a href="#update">Update Client</a></button>
+            <button onclick="showForm('status-update-form')" class="btn"><a href="#update-status">Project Status Update</a></button>
+            <button onclick="showForm('project-approval-form')" class="btn"><a href="#project-approval">Project Approval</a></button>
+            <button class="btn send-contract" onclick="showLoadingScreen()"><a href="{{ url_for('main.send_contract', client_id=client.id) }}">Send Contract</a></button>
+            <button class="btn"><a href="#report">Download Report</a></button>
+            <button class="btn"><a href="{{ url_for('main.admin_panel') }}"><i class="fa fa-arrow-left"></i> Back</a></button>
+        </div>
+    </header>
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <p>Working on it...
+        </p>
+    </div>
+    <div style="display: none;" id="content">
+        <section class="edit-client-form">
+            <div class="form" id="edit-client-form" style="display: none;">
+                
+                <h1 style="font-weight: 400; margin-bottom: 10px;">Client Update</h1>
+                <form action="{{ url_for('main.edit_client', client_id=client.id) }}" method="POST">
+                    {{ form.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form.first_name(class="form-input", placeholder="First Name") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.last_name(class="form-input", placeholder="Last Name") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.email(class="form-input", placeholder="Email Address") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.cell_number(class="form-input", placeholder="Cell Phone Number", type="tel") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.submit(class="update-btn", onclick="showLoadingScreen()") }}
+                        <button onclick="hideForm('edit-client-form')" type="button" id="cancel-button" class="update-btn"><a>Cancel</a></button>
+                    </div>
+                </form>
+            </div>
+    
+            <div class="form" id="status-update-form" style="display: none;">
+                <h1 style="font-weight: 400; margin-bottom: 10px;">Project Status Update</h1>
+                <form action="{{ url_for('main.status_update', client_id=client.id) }}" method="POST">
+                    {{ form2.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form2.project_status.label(class="form-label") }}
+                        {{ form2.project_status(class="form-input") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form2.submit(class="update-btn", onclick="showLoadingScreen()") }}
+                        <button onclick="hideForm('status-update-form')" type="button" id="cancel-button" class="update-btn"><a>Cancel</a></button>
+                    </div>
+                </form>
+            </div>
+    
+            <div class="form" id="project-approval-form" style="display: none;">
+                <h1 style="font-weight: 400; margin-bottom: 10px;">Project Approval</h1>
+                <form action="{{ url_for('main.project_approval', client_id=client.id) }}" method="POST">
+                    {{ form3.hidden_tag() }}
+                    <div class="form-group">
+                        {{ form3.project_approval(class="form-input") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form3.submit(class="update-btn", onclick="showLoadingScreen()") }}
+                        <button onclick="hideForm('project-approval-form')" type="button" id="cancel-button" class="update-btn"><a>Cancel</a></button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    
+        <section class="client-details-section">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <p style="margin: 0 20px;" class="alert-message"><strong>{{ message }}</strong></p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="client-details">
+                <h1><i class="fa fa-id-card"></i> {{ client.first_name }} {{ client.last_name }}</h1>
+                <div class="client-info">
+                    <div class="info-label">    
+                        <h3>Personal Details</h3>
+                        <p style="width: 300px;"><strong><i class="fa fa-envelope"></i></strong> {{ client.email }}</strong></p>
+                        <p><strong><i class="fa fa-phone"></i></strong> {{ client.cell_number }}</strong></p>
+                        <p><strong><i class="fa fa-map-marker"></i></strong> {{ client.province }}, South Africa</p>
+                        <p><strong>Client Status:</strong> {{ client.client_status }}</strong></p>
+                        <p><strong>Contract Status:</strong> {{ client.contract }}</strong></p>
+                    </div>
+                    <div class="info-value">
+                        <h3>Project Details</h3>
+                        <p><strong>Project Name:</strong> {{ client.project_name }}</p>
+                        <p><strong>Project Description:</strong> {{ client.project_description }}</p>
+                        <p><strong>Package Type:</strong> {{ client.package_type }}</p>
+                        <p><strong>Maintenance Included:</strong> {% if client.is_maintenance %}Yes{% else %}No{% endif %}</p>
+                        <p><strong>Additional Information:</strong> {{ client.additional_information }}</p>
+                        <p><strong>Project Status:</strong> {{ client.project_status }}</p>
+                        <p><strong>Project Approval:</strong> {{ client.project_approval }}</strong></p>
+                        <p><strong>Meeting URL:</strong> {{ client.meeting_url }}</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <p>Powered by Oriah Web Studios</p>
+    </footer>
+
+    <script>
+        // loading screen
+        window.addEventListener("load", function() {
+            document.querySelector("#loading-screen").style.display = "none";
+            document.querySelector("#content").style.display = "block";
+        });
+
+        // Function to show loading screen when certain buttons are clicked
+        function showLoadingScreen() {
+            document.querySelector("#loading-screen").style.display = "flex";
+            document.querySelector("#content").style.display = "none";
+        }
+
+        // Function to show/hide forms
+        function showForm(formId) {
+            const form = document.getElementById(formId);
+            form.style.display = "block";
+        }
+
+        function hideForm(formId) {
+            const form = document.getElementById(formId);
+            form.style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

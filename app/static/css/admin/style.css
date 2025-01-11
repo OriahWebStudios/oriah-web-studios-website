@@ -1,0 +1,868 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+}
+
+body {
+    display: flex;
+}
+
+#content {
+    display: flex;
+    width: 100%;
+}
+/* Sidebar */
+
+.sidebar {
+    width: 100px;
+    background-color: black;
+    color: white;
+    padding-top: 20px;
+    position: fixed;
+    height: 100vh;
+}
+
+.side-img {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 85px;
+    margin-bottom: 20px;
+}
+
+.sidebar nav ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+
+.sidebar nav ul li a {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+    padding: 20px 0;
+}
+
+.sidebar nav ul li a:hover {
+    background-color: rgb(27, 27, 27);
+    color: white;
+}
+
+.sidebar nav ul li a.active {
+    background-color: rgb(27, 27, 27);
+    color: white;
+}
+
+
+.main-content {
+    margin-left: 100px;
+    width: calc(100% - 100px);
+    flex: 1;
+}
+
+.not-authorized {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 65vh;
+    font-weight: 400;
+}
+
+/* Top Nav */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);;
+    padding: 26px 30px;
+    position: fixed;
+    top: 0;
+    width: calc(100% - 100px);
+    z-index: 99999;
+    background-color: white;
+}
+
+.top-nav .main-c-h1 h2 {
+    color: black;
+    font-weight: 400;
+    font-size: 16pt;
+}
+
+.top-nav .search-bar input {
+    padding: 5px 10px;
+    width: 300px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.top-nav .nav-icons i {
+    margin-left: 20px;
+    font-size: 12pt;
+    color: black;
+    text-decoration: none;
+}
+
+/* Dashboard */
+.dashboard {
+    margin: 0 20px;
+}
+
+.dashboard h1 {
+    margin-bottom: 20px;
+    margin-top: 100px;
+    font-size: 20pt;
+    color: black;
+    font-weight: 400;
+}
+
+.overview {
+    display: flex;
+    gap: 5px;
+}
+
+.card {
+    padding: 20px;
+    background-color: greenyellow;
+    border-radius: 8px;
+    font-size: 12pt;
+    color: black;
+    width: 400px;
+}
+
+.grey {
+    background-color: black;
+    color: white;
+}
+
+.value-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12pt;
+}
+
+.value-heading a {
+    text-decoration: none;
+    color: black;
+    font-size: 12pt;
+}
+
+.value {
+    font-size: 30pt;
+}
+
+
+/* Client List Section */
+.clients-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+.portfolio-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 100px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid black;
+}
+
+.clients-nav button {
+    text-decoration: none;
+    color: black;
+    padding: 0 0;
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 10pt;
+    margin-left: 10px;
+}
+
+.clients-nav button.active {
+    border-bottom: black 1.5px solid;
+}
+
+.clients-nav button:hover {
+    border-bottom: black 1.5px solid;
+}
+
+.portfolio-nav button {
+    text-decoration: none;
+    color: black;
+    padding: 0 0;
+    background: none;
+    cursor: pointer;
+    border: none;
+    font-size: 10pt;
+    margin-left: 10px;
+}
+
+.portfolio-nav button.active {
+    border-bottom: black 1.5px solid;
+}
+
+.portfolio-nav button:hover {
+    border-bottom: black 1.5px solid;
+}
+
+.client-table {
+    width: 100% !important;
+    border-collapse: collapse;
+    margin-top: 20px;
+    max-width: 100% !important;
+}
+
+.client-table td {
+    font-size: 10pt;
+    padding: 20px 10px;
+    text-align: left;
+    border-bottom: #080808 1px solid;
+}
+
+
+.client-table th {
+    background-color: black;
+    color: white;
+    font-size: 11pt;
+    padding: 10px 10px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.client-table tr:hover {
+    background-color: black;
+    color: white;
+}
+
+.btn {
+    padding: 10px;
+    border: none;
+    background-color: rgb(27, 27, 27);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: white;
+    color: black;
+}
+
+.delete-btn:hover {
+    background-color: orangered !important;
+    color: black;
+}
+
+/* Project Cards */
+.project-cards {
+    display: flex;
+    margin-top: 10px;
+}
+
+.project-card {
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: box-shadow 0.3;
+    color: white;
+}
+
+.project-card:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.project-card h3 {
+    color: white;
+    font-weight: 400;
+}
+
+.project-card .btn {
+    padding: 15px;
+    border: none;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.project-card .btn:hover {
+    background-color: rgb(201, 201, 201);
+    color: black;
+}
+
+
+/* Section Viewer */
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+
+/* Client Details View */
+.client-details {
+    background-color: rgb(0, 0, 0);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.client-details h1 {
+    margin-top: 20px;
+    font-size: 18pt;
+    font-weight: 400;
+}
+
+.client-info-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.info-label {
+    font-weight: bold;
+}
+
+.info-value {
+    max-width: 400px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-justify: auto;
+}
+
+
+.client-details p {
+    margin-top: 10px;
+    font-size: 11pt;
+    font-weight: 400;
+}
+
+
+
+/* Forms */
+#edit-client-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.form-control {
+    padding: 5px;
+    width: 155px;
+}
+
+.update-btn {
+    border: white 2px solid;
+}
+
+/* Edit Client Page */
+.edit-client-body {
+    margin: 0 30px;
+}
+
+.edit-client-body header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px ;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+/* Login */
+
+.login-logo {
+    width: 150px;
+}
+
+.login-form-container {
+    position: relative;
+    margin: 0 auto;
+    background-color: black;
+    width: 400px;
+    height: 400px;
+}
+
+/* Filter */
+.filter-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.filter-section input, .filter-section select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+.filter-section input {
+    width: 300px;
+}
+
+.export-btn {
+    border: none;
+    background-color: rgb(27, 27, 27);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    padding: 8.5px;
+    font-size: 11pt;
+}
+
+.export-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+/* Log */
+.activityLog {
+    margin-top: 20px;
+}
+
+.activityLog h2 {
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+
+.log {
+    padding: 8px 0;
+    border-bottom: 1px solid rgb(202, 202, 202);
+}
+
+.log:hover {
+    background-color: black;
+    color: white !important;
+}
+
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.log-table tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+.log-table td {
+    text-align: left;
+    padding: 5px 0;
+    width: 280px;
+}
+
+.log p {
+    font-size: 10pt;
+}
+
+/* Upload/Download */
+.upload-container {
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    color: black;
+    border: black 2px solid;
+    height: 180px;
+    width: 550px;
+    margin: 0 auto;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -55%);
+    z-index: 999;
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.upload-content input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.upload-btn {
+    border: none;
+    background-color: rgb(27, 27, 27);
+    color: white;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 5px;
+}
+
+.upload-btn:hover {
+    background-color: white;
+    color: black;
+}
+
+.hover:hover {
+    background-color: black;
+    color: white;
+}
+
+.inactive-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: white;
+    color: black;
+    border: black 2px solid;
+    height: 100px;
+    width: 400px;
+    margin: 0 auto;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -55%);
+}
+
+.inactive-container a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inactive-container p {
+    font-size: 10pt;
+    margin-bottom: 10px;
+}
+
+.inactivity-body {
+    background-color: rgba(27, 27, 27, 0.466);
+}
+
+/* Loader */
+.loader-content {
+   position: fixed;
+   top: 0;
+   left: 0;
+   height: 100vh;
+   width: 100vw;
+   z-index: 9999;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.loader-content img {
+    width: 200px;
+}
+
+.loader-content p {
+    margin-top: 10px;
+}
+
+.loader {
+    display: block;
+    position: relative;
+    height: 6px;
+    width: 193px;
+    border: 1px solid rgb(223, 223, 223);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 8px;
+}
+
+.loader::after {
+    content: '';
+    width: 40%;
+    height: 100%;
+    background: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    animation: animloader 2s linear infinite;
+}
+
+.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+::selection {
+    background-color: rgb(204, 204, 204);
+    color: black;
+}
+
+/* Finance Section */
+.btns-container {
+    width: 100%;
+    display: flex;
+}
+
+.btns-container a {
+    width: 100%;
+}
+
+.btns-container button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: rgb(27, 27, 27);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btns-container button:hover {
+    background-color: black;
+    color: white;
+}
+
+.financial-records-container {
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.finance-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: white 2px solid;
+    padding-bottom: 10px;
+}
+
+.finance-header h2 {
+    font-size: 20pt;
+    color: white;
+    font-weight: 400;
+}
+
+.financial-records p {
+    font-size: 12pt;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 6px 0;
+}
+
+.expense-tracker-container {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+    margin-bottom: 20px;
+}
+
+.expense-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+}
+
+.expense-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    
+}
+
+.expense-table td {
+    font-size: 9pt;
+    padding: 15px 10px;
+    text-align: left;
+    border-bottom: #080808 1px solid;
+}
+
+
+.expense-table th {
+    background-color: black;
+    color: white;
+    font-size: 11pt;
+    padding: 10px 10px;
+    font-weight: 400;
+    text-align: left;
+}
+
+.expense-table tr:hover {
+    background-color: black;
+    color: white;
+}
+
+
+
+.form-container form {
+    display: flex;
+    flex-direction: column !important;
+    align-items: start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.form-container, .expense-form form {
+    display: flex;
+    flex-direction: column !important;
+    align-items: start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.income-form {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100% !important;
+}
+
+.expense-form {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100% !important;
+}
+
+.form-input {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 100% !important;
+}
+
+.form-container h2 {
+    font-size: 13pt;
+    font-weight: 400;
+}
+
+.meeting-container {
+    margin-top: 10px;
+    background-color: white;
+    border-radius: 5px;
+    color: black;
+    border-bottom: 1px solid white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meeting-options button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 11pt;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.meeting-options button:hover {
+    transform: scale(1.1);
+}
+
+.meeting-details {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    padding-bottom: 25px;
+    border-radius: 5px;
+    color: black;
+}
+
+.scrollable {
+    overflow: auto;
+    height: 385px;
+}
+
+.scrollable::-webkit-scrollbar {
+    display: none;
+}
+
+.meeting-details a {
+    text-decoration: none;
+    padding: 8px;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 10pt;
+}
+
+.meeting-details a:hover {
+    background-color: black;
+    color: white;
+}
+
+.reminder-form-container .input {
+    padding: 10px;
+    background: none;
+    border: 2px solid rgb(27, 27, 27);
+    color: white;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.reminder-form-container {
+    margin-top: 20px;
+}
+
+
+/* Loader Animation */
+@keyframes animloader {
+    0% {
+        left: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        left: 100%;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+
+

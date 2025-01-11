@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Request a Custom Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css"/>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+</head>
+<body style="background-color: white;">
+    <div id="loading-screen">
+        <img class="loading-image" src="{{ url_for('static', filename='img/8-removebg-preview.crop.png') }}" alt="">
+    </div>
+    <div id="content" style="display: none;">
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <header style="padding: 20px 50px; background-color: white;" class="header">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/4-removebg-preview.png') }}" alt="logo">
+                </div>
+            </div>
+        </header>
+
+        <div class="start-project-form-page">
+            <div class="form-content">
+                <form action="{{ url_for('main.submit_project') }}" method="POST" novalidate id="start-project-form">
+                    {{ form.hidden_tag() }}
+                    {{ form.package_type() }}
+
+                    <div id="section1" class="form-section">
+                        <p><i class="fa fa-user"></i> Tell us a little bit about yourself</p>
+                        <div class="form-group">
+                            {% if form.first_name.errors %}
+                                {% for error in form.first_name.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="first_name-error"></div>
+                            {{ form.first_name.label(class="form-label") }}
+                            {{ form.first_name(class="form-input", id="first_name") }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.last_name.errors %}
+                                {% for error in form.last_name.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="last_name-error"></div>
+                            {{ form.last_name.label(class="form-label") }}
+                            {{ form.last_name(class="form-input", id="last_name") }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.email.errors %}
+                                {% for error in form.email.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="email-error"></div>
+                            {{ form.email.label(class="form-label") }}
+                            {{ form.email(class="form-input", id="email") }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.cell_number.errors %}
+                                {% for error in form.cell_number.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="cell_number-error"></div>
+                            {{ form.cell_number.label(class="form-label") }}
+                            {{ form.cell_number(class="form-input", id="cell_number", type="tel") }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.province.errors %}
+                                {% for error in form.province.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="province-error"></div>
+                            {{ form.province.label(class="form-label") }}
+                            {{ form.province(class="form-input", id="province") }}
+                        </div>
+                        <div class="section-nav">
+                            <button type="button" id="nextToSection2"><i class="fa fa-chevron-down"></i></button>
+                        </div>
+                    </div>
+
+                    <div id="section2" class="form-section hidden">
+                        <p><i class="fa fa-briefcase"></i> Tell us a little about your project</p>
+                        <div class="form-group">
+                            {% if form.project_name.errors %}
+                                {% for error in form.project_name.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="project_name-error"></div>
+                            {{ form.project_name.label(class="form-label") }}
+                            {{ form.project_name(class="form-input", id="project_name") }}
+                        </div>
+                        <div class="form-group">
+                            {% if form.project_description.errors %}
+                                {% for error in form.project_description.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="project_description-error"></div>
+                            {{ form.project_description.label(class="form-label") }}
+                            {{ form.project_description(class="form-input", id="project_description", style="height: 200px;") }}
+                        </div>
+                        <div class="is_maintenance_container">
+                            <div class="form-group is_maintenance">
+                                {% if form.is_maintenance.errors %}
+                                    {% for error in form.is_maintenance.errors %}
+                                        <div class="error-message">{{ error }}</div>
+                                    {% endfor %}
+                                {% endif %}
+                                <div class="error-message" id="is_maintenance-error"></div>
+
+                                <div class="title">
+                                    <h2>Interested in Our Hosting Plan?</h2>
+                                </div>
+
+                                <div class="is_maintenance-details">
+                                    <p >
+                                        Your website's performance and reliability are crucial for your business's online success. We provide a <strong>6-month complimentary hosting plan</strong> after your website's launch. During this time, we offer:
+                                    </p>
+                                    <ul>
+                                        <li><i class="fa fa-check"></i> Secure and scalable hosting services</li> <li><i class="fa fa-check"></i> 99.9% uptime guarantee</li> <li><i class="fa fa-check"></i> Regular backups</li> <li><i class="fa fa-check"></i> Reliable 24/7 support</li>                                    </ul>
+                                    <p>
+                                        After the initial 6 months, you can continue to enjoy these benefits for just <strong style="color: green;">R300 per month</strong>. This small investment ensures that your website remains fast, secure, and always available to your customers—saving you time and worry.
+                                    </p>
+                                    <p>
+                                        With our hosting plan, you'll have peace of mind knowing that your online presence is in expert hands, allowing you to focus on what you do best: growing your business.
+                                    </p>
+                                </div>
+
+                                <div class="checkbox-container">
+                                    {{ form.is_maintenance.label("I'm interested", style="font-size: 14pt;") }}
+                                    {{ form.is_maintenance(class="form-input form-checkbox", id="is_maintenance") }}
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                        <div class="section-nav">
+                            <button type="button" id="nextToSection3"><i class="fa fa-chevron-down"></i></button>
+                            <button type="button" id="prevToSection1"><i class="fa fa-chevron-up"></i></button>
+                        </div>
+                    </div>
+
+
+                    <div id="section3" class="form-section hidden">
+                            <div class="form-group checkbox">
+                            {% if form.additional_information.errors %}
+                                {% for error in form.additional_information.errors %}
+                                    <div class="error-message">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="error-message" id="additional_information-error"></div>
+                            {{ form.additional_information.label(class="form-label") }}
+                            {{ form.additional_information(class="form-input", id="additional_information", style="height: 350px;") }}
+                            <p>By submitting this form, you acknowledge that you have read and agree to the terms and conditions.</p>
+                            {{ form.submit(class="form-button", id="submit-button") }}
+
+                            <div class="section-nav">
+                                <button type="button" id="prevToSection2"><i class="fa fa-chevron-up"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+        <script>
+            // Loading Screen
+            window.addEventListener("load", () => {
+                const loadingScreen = document.getElementById("loading-screen");
+                const mainContent = document.getElementById("content");
+                
+                loadingScreen.classList.add("fade-out");
+
+                loadingScreen.addEventListener("transitionend", () => {
+                    loadingScreen.style.display = "none";
+                    mainContent.style.display = "block";
+                });
+            });
+
+            // Start Project Form
+            document.getElementById('nextToSection2').addEventListener('click', function() {
+                const progressBar = document.getElementById('progress-bar');
+
+                document.querySelectorAll('.error-message').forEach(error => error.innerText = '');
+
+                let hasError = false;
+
+                const first_name = document.getElementById('first_name').value.trim();
+                const last_name = document.getElementById('last_name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const cell_number = document.getElementById('cell_number').value.trim();
+                province = document.getElementById('province').value.trim();
+
+                progressBar.style.width = '0%';
+
+                if (!first_name) {
+                    document.getElementById('first_name-error').innerText = 'First name is required';
+                    hasError = true;
+                }
+                if (!last_name) {
+                    document.getElementById('last_name-error').innerText = 'Last name is required';
+                    hasError = true;
+                }
+                if (!email) {
+                    document.getElementById('email-error').innerText = 'Email is required';
+                    hasError = true;
+                } else if (!/\S+@\S+\.\S+/.test(email)) {
+                    document.getElementById('email-error').innerText = 'Please enter a valid email address';
+                    hasError = true;
+                }
+                if (!cell_number) {
+                    document.getElementById('cell_number-error').innerText = 'Cell number is required';
+                    hasError = true;
+                } else if (!iti.isValidNumber()) {
+                    document.getElementById('cell_number-error').innerText = 'Please enter a valid cell number';
+                    hasError = true;
+                }
+
+                if (!province) {
+                    document.getElementById('province-error').innerText = 'Province is required';
+                    hasError = true;
+                }
+
+                if (!hasError) {
+                    document.getElementById('section1').classList.add('hidden');
+                    document.getElementById('section2').classList.remove('hidden');
+                    progressBar.style.width = '50%';
+                }
+            });
+
+            document.getElementById('nextToSection3').addEventListener('click', function() {
+
+                document.querySelectorAll('.error-message').forEach(error => error.innerText = '');
+                
+
+                let hasError = false;
+
+
+                const is_maintenance = document.getElementById('is_maintenance').value.trim();
+                const project_name = document.getElementById('project_name').value.trim();
+                const project_description = document.getElementById('project_description').value.trim();
+                
+                if (!project_name) {
+                    document.getElementById('project_name-error').innerText = 'Project name is required';
+                    hasError = true;
+                }
+                if (!project_description) {
+                    document.getElementById('project_description-error').innerText = 'Project description is required';
+                    hasError = true;
+                }
+
+                if (!is_maintenance) {
+                    document.getElementById('is_maintenance-error').innerText = 'Maintenance is required';
+                    hasError = true;
+                }
+            
+                if (!hasError) {
+                    document.getElementById('section2').classList.add('hidden');
+                    document.getElementById('section3').classList.remove('hidden');
+                    document.getElementById('progress-bar').style.width = '75%';
+                }
+            });
+
+            document.getElementById('prevToSection1').addEventListener('click', function() {
+                document.getElementById('section1').classList.remove('hidden');
+                document.getElementById('section2').classList.add('hidden');
+                document.getElementById('section3').classList.add('hidden');
+                document.progressBar.style.width = '0%';
+            });
+
+            document.getElementById('prevToSection2').addEventListener('click', function() {
+                document.getElementById('section2').classList.remove('hidden');
+                document.getElementById('section1').classList.add('hidden');
+                document.getElementById('section3').classList.add('hidden');
+                document.progressBar.style.width = '50%';
+            });
+
+            // Phone Number Code
+            const phoneNumberInput = document.getElementById('cell_number');
+
+            const iti = window.intlTelInput(phoneNumberInput, {
+                initialCountry: 'auto',
+                geoIpLookup: function(callback) {
+                    fetch('https://ipinfo.io?token=eb519fbd77d35c')
+                    .then((resp) => resp.json())
+                    .then((data) => callback(data.country))
+                    .catch(() => callback('za'));
+                },
+                utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
+            });
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oriah Web Studios | Thank You</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+    <div id="loading-screen">
+        <img class="loading-image" src="{{ url_for('static', filename='img/8-removebg-preview.crop.png') }}" alt="">
+    </div>
+    <div id="content" style="display: none;">
+        <header style="padding: 20px 50px; backdrop-filter: blur(2px);" class="header">
+            <div class="navbar">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="logo">
+                </div>
+            </div>
+        </header>
+
+        <div class="success-message">
+            <h1>Thank You. </h1>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        {% if category == 'submission-project-home-success' or category == 'submission-project-other-success' or category == 'submission-maintenance-home-success' or category == 'success-contract' or category == 'submission-addon-home-success' or category == 'submission-addon-other-success' or category =='success_contact_page' %}
+                            <p>{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <a href="{{ url_for('main.index') }}"><i class="fa fa-home"></i> Go back to homepage</a>
+        </div>
+
+        <script>
+            // Loading Screen
+            window.addEventListener("load", () => {
+                const loadingScreen = document.getElementById("loading-screen");
+                const mainContent = document.getElementById("content");
+                
+                loadingScreen.classList.add("fade-out");
+
+                loadingScreen.addEventListener("transitionend", () => {
+                    loadingScreen.style.display = "none";
+                    mainContent.style.display = "block";
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

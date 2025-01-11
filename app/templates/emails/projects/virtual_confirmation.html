@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/email-style.css') }}">
+</head>
+<body>  
+    <style>
+        body {
+            margin: 0 10px;
+            font-family: Poppins;
+        }
+        
+        div {
+            width: 100%;
+        }
+        .email-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .email-header img {
+            width: 200px;
+        }
+        
+        .email-header h3 {
+            font-size: 14pt;
+            font-weight: 400;
+            font-family: Poppins;
+        }
+        
+        .email-body {
+            font-family: Poppins;
+            font: 11pt;
+        }
+        
+        .meeting-link a {
+            text-decoration: none;
+            background-color: rgb(172, 172, 172);
+            color: black;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 11pt;
+            font-weight: 500;
+        }
+        
+        .email-footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .email-footer .email-links a {
+            text-decoration: none;
+            color: blue;
+        }
+        
+        .email-footer img {
+            width: 150px;
+        }
+    </style>  
+    <div class="email-header" style="margin-bottom: 20px;">
+        <a href="{{ url_for('main.index', _external=True) }}"><img src="https://www.dropbox.com/scl/fi/hdb5sfeu5tvuzsavrwbrq/4-removebg-preview.png?rlkey=z0g4d777ddrfe3nfnptq3m78y&st=jcjh8b6z&raw=1" alt="logo" style="width: 200px;" alt="logo"></a>
+        <h3>Project Plan Approved</h3>
+    </div>
+    
+    <div class="email-body">
+        <div class="email-greeting">
+            <p>Greetings, {{ first_name }} {{ last_name }}</p>
+        </div>
+        
+        <div class="email-content">
+            <p>Thank you for choosing the {{ package_type }} project plan with Oriah Web Studios. We are thrilled to have you as a valued client and look forward to collaborating with you to bring your vision to life.</p>
+
+            <div class="email-project-details">
+                <h3 style="font-size: 13pt;">Project Details:</h3>
+                <p><strong>Project Name:</strong> {{ project_name }}</p>
+                <p><strong>Project Description:</strong> {{ project_description }}</p>
+                <p><strong>Target Audience:</strong> {{ target_audience }}</p>
+            </div>
+
+            <p style="margin-bottom: 20px;">To kick off our collaboration, we would like to invite you to a virtual meeting to discuss the details of your project and ensure we meet your unique needs and goals. Our team will be reaching out to you soon to schedule this meeting at a time that is convenient for you.</p>
+
+            <div class="meeting-link" style="margin-bottom: 20px;">
+                <p>Please note that this is a one-time link for this meeting, which should only be used at the scheduled time.</p>
+                <a style="text-decoration: none;background-color: black;color: white;padding: 10px 20px;border-radius: 5px;font-size: 12pt;font-weight: 500;" href="{{ participant_link }}">Join Meeting</a>
+            </div>
+            <br>
+
+            <p>Our team is dedicated to delivering exceptional web development services that meet your unique needs and goals. We are excited to embark on this journey together. If you have any questions or require further assistance, please do not hesitate to reach out.</p>
+        </div>
+
+        <div class="email-signature" style="margin-bottom: 20px;">
+            <p>Best regards,<br>
+            The Oriah Web Studios Team</p>
+        </div>
+    </div>
+
+    <div class="email-footer">
+        <br>
+        <a style="text-decoration: none;" href="{{ url_for('main.index', _external=True) }}"><img src="https://www.dropbox.com/scl/fi/hdb5sfeu5tvuzsavrwbrq/4-removebg-preview.png?rlkey=z0g4d777ddrfe3nfnptq3m78y&st=jcjh8b6z&raw=1" alt="logo"></a>
+        <br>
+        <div class="email-links" style="font-size: 10pt !important;">
+            <a href="">Privacy Policy</a>
+            <span>-</span>
+            <a href="">Terms & Conditions</a>
+        </div>
+        <p style="font-size: 10pt;">Copyright © 2024 Oriah Web Studios. All rights reserved</p>
+    </div>
+</body>
+</html>
