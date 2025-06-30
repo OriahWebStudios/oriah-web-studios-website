@@ -29,5 +29,4 @@ def create_app(config_class=config.Config):
 
     with app.app_context():
         from . import models, routes, forms
-        db.create_all()
     return app
