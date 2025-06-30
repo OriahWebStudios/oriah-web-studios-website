@@ -80,7 +80,7 @@
                                     <p style="margin-bottom: 20px; font-size: 12pt">{% if meeting.setting == 'Virtual' %}<i class="fa fa-desktop"></i> Virtual{% else %}<i class="fa fa-user"></i> In-Person{% endif %}</p>
                                     <a href="{{meeting.meeting_url}}"><i class="fa fa-video-camera"></i> Join Meeting</a>
                                     <a href="#update" onclick="showUploadContainer('reminder-form-{{ meeting.id }}')"><i class="fa fa-pencil"></i> Update</a>
-                                    <a href="#cancel"><i class="fa fa-trash-o"></i> Remove</a>
+                                    <a href="{{ url_for('main.delete_reminder', meeting_id=meeting.id) }} "><i class="fa fa-trash-o"></i> Remove</a>
 
                                     <div id="reminder-form-{{ meeting.id }}" class="reminder-form-container" style="display: none;">
                                         <form action="{{ url_for('main.update_reminder', meeting_id=meeting.id) }}" method="POST">
@@ -101,10 +101,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                    <div style="width: 50%; height: 460px;" class="card grey">
-                        <p style="font-size: 11pt; display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px;">Messages</p>
-
-                    </div>
+                    
                 </div>
                 
                 
@@ -200,7 +197,7 @@
                 <div class="portfolio-nav">
                     <h2 style="font-weight: 400;"><i class="fa fa-money"></i> Financials Hub</h2>
                 </div>
-                {% if current_user.is_authenticated %}
+                {% if current_user.is_authenticated == 2 %}
                     <div class="btns-container">
                         <button onclick="showUploadContainer('income-form')">Capture Income</button>
                         <a href="#add_expense"><button onclick="showUploadContainer('expense-form')">Capture Expenses</button></a>

@@ -456,6 +456,15 @@ def update_reminder(meeting_id):
         return redirect(url_for('main.admin_panel'))
     return render_template('admin/admin_panel.html', meeting=meeting)
 
+@main.route('/delete_reminder/<int:meeting_id>', methods=['GET', 'POST'])
+def delete_reminder(meeting_id):
+    meeting = MeetingTable.query.get_or_404(meeting_id)
+    db.session.delete(meeting)
+    db.session.commit()
+    flash('Meeting reminder deleted')
+    return redirect(url_for('main.admin_panel'))
+      
+
 @main.route('/clients/delete/<int:client_id>', methods=['GET', 'POST'])
 @login_required
 def web_dev_delete_client(client_id):

@@ -21,9 +21,47 @@
                     <img src="{{ url_for('static', filename='img/6-removebg-preview.crop.png') }}" alt="logo">
                 </div>
                 <div class="menu">
-                    <a href="#projects">Case Studies</a>
-                    <a href="#pricing">Pricing Plans</a>
-                    <a class="get-in-touch" href="{{ url_for('main.contact_page') }}">Get In Touch <i style="font-weight: lighter;" class="fa fa-arrow-right"></i></a>
+                    <a href="{{ url_for('main.index') }}"> Home</a>
+                    <a href="#projects"> Case Studies</a>
+                    <a href="#pricing"> Pricing</a>
+                    <a class="get-in-touch" href="{{ url_for('main.contact_page') }}"> Contact Us <i class="fa fa-arrow-right"></i></a>
+                </div>
+                <button id="menu" class="menu-btn"><i class="fa fa-bars"></i></button>
+                <div id="menu-items" class="menu-items">
+                    <div style="padding: 10px 0;">
+                    <a href="{{ url_for('main.index') }}">
+                        <div class="a-div">
+                            <div>
+                                <h2><i class="fa fa-home"></i>Home</h2></p>
+                                <p>Get Started</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#pricing">
+                        <div class="a-div">
+                            <div>
+                                <h2><i class="fa fa-tag"></i>Pricing</h2>
+                                <p>Discover Our Plans</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#projects">
+                        <div class="a-div">
+                            <div>
+                                <h2><i class="fa fa-book"></i>Case Studies</h2>
+                                <p>See Our Work</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ url_for('main.contact_page') }}">
+                        <div class="a-div">
+                            <div>
+                                <h2><i class="fa fa-phone"></i>Contact Us</h2>
+                                <p>Get In Touch</p>
+                            </div>
+                        </div>
+                    </a>
+                    </div>
                 </div>
             </div>
         </header>
@@ -43,7 +81,7 @@
             </div>
         </section>
 
-        <div style="height: 10vh;"></div>
+        <div style="height: 2vh;"></div>
 
 
         <section class="promotional">
@@ -52,13 +90,13 @@
             </div>
         </section>
 
-        <div style="height: 10vh;"></div>
+        <div style="height: 5vh;"></div>
 
         <section class="service">
             <div class="service-content">
                 <h1 style="margin: 0 !important;" class="service-title">What we do</h1>
                 <p style="margin: 0;" class="service-title">We will make it work. No matter what!</p>
-                <div style="height: 10vh;"></div>
+                <div style="height: 3vh;"></div>
                 <div class="services">
                     <div class="development">
                         <h3>01</h3>
@@ -79,13 +117,12 @@
             </div>
         </section>
 
-        <div style="height: 20vh;"></div>
+        <div style="height: 10vh;"></div>
 
         <section class="work-done-brands">
             <div class="brand-container">
-                <h3>IRONCROFT SOCIETY</h3>
                 <h3 style="font-family: 'Times New Roman', Times, serif;">Aesthetics Beauty Studio</h3>
-                <h3>Far From The Rest</h3>
+                <h3>eXPay</h3>
             </div>
         </section>
 
@@ -97,7 +134,6 @@
                 <p style="color: white; font-weight: 400; text-align: center;">Our recent projects reflect our dedication to seamless user experience, robust performance, and innovative design.</p>
                 <div class="projects">
                     <div class="project">
-                        <img src="{{ url_for('static', filename='img/screenshot-1730098539359.png') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -305,6 +341,31 @@
             </div>
         </section>
         <script type="text/javascript">
+            // Function to show/hide the more menu and add animation
+            document.getElementById('menu').addEventListener('click', function() {
+                const moreMenu = document.querySelector('.menu-items');
+                if (moreMenu.style.display === 'block') {
+                    anime({
+                        targets: moreMenu,
+                        opacity: [1, 0],
+                        width: ['100%', '0px'],
+                        duration: 200,
+                        easing: 'easeOutQuad',
+                        complete: function() {
+                            moreMenu.style.display = 'none';
+                        }
+                    });
+                } else {
+                    moreMenu.style.display = 'block';
+                    anime({
+                        targets: moreMenu,
+                        opacity: [0, 1],
+                        width: ['0px', '100%'],
+                        duration: 200,
+                        easing: 'easeOutQuad',
+                    });
+                }
+            });
             // Anime.js init
             function animateParagraphs() {
                 anime({
@@ -484,7 +545,7 @@
                 });
             });
 
-           
+            
         </script>
     </div>
 </body>
